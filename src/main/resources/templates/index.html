@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}" />
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12 mt-5 d-flex justify-content-between">
+				<a class="d-block" th:href="@{/pizza/{id} (id=*{id})}" th:if="${pizze.size() > 0}" th:each="pizza : ${pizze}" th:object="${pizza}">
+					<div  class="card" style="width: 18rem;">
+		  				<img th:src="@{${pizza.photo}}" alt="" class="card-img-top">
+		  				<div class="card-body">
+		    				<h5 class="card-title">[[ *{name} ]]</h5>
+		    				<p class="card-text">[[ *{description} ]]</p>
+		    				<p class="card-text">Price: [[ *{price} ]]</p>
+		    				<!--  <a href="#" class="btn btn-primary">Go somewhere</a>-->
+		  				</div>
+					</div>
+				</a>
+				<h1 th:if="${pizze.size() == 0}">No pizza in the database</h1>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
