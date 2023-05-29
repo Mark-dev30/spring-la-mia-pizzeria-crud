@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class PizzaController {
@@ -26,6 +29,15 @@ public class PizzaController {
 		
 	}
 	
+	@PostMapping("/pizza/by/name")
+	public String getPizzaByTitle(Model model,@RequestParam(required = false) String name) {
+		List<Pizza> pizze = pizzaService.findByNameContaining(name);
+		model.addAttribute("pizze", pizze); //Passiamo a index.html la lista delle pizze filtrate
+		model.addAttribute("name", name); // Passiamo a index.html anche il parametro (Nome inserito nel form) passato dal form al back-end
+		
+		return "index";
+	}
+	
 	@GetMapping("/pizza/{id}")
 	public String printPizzaWithId(Model model, @PathVariable("id") int id) {
 		
@@ -38,6 +50,23 @@ public class PizzaController {
 		return "pizza";
 
 	}
+	
+	@GetMapping("/pizza/create")
+	public String createPizza() {
+		
+		return "newpizza";
+	}
+	
+	//Questa funzione viene chiamata quando viene inviata una richiesta POST all'URL "/pizza/create"
+	@PostMapping("/pizza/create") 
+	public String storePizza(@ModelAttribute Pizza pizza) { //L'oggetto 'Pizza' viene popolato automaticamente con i dati inviati dal client tramite la richiesta POST grazie all'annotazione @ModelAttribute
+		
+		pizzaService.save(pizza);
+		
+		return "redirect:/"; //Ritorna la rotta '/' (in questo caso la homepage)
+	}
+	
+	
 	private Pizza getPizzaById(int id) {
 		
 		Pizza singlePizza = null;

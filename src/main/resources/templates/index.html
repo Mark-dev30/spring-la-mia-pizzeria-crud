@@ -7,18 +7,36 @@
 <body>
 	<div class="container-fluid">
 		<div class="row">
+			<div class="col-12">
+			<!-- Reindirizza alla rotta /pizza/create -->
+				<a th:href="@{/pizza/create}">New Pizza</a>
+			</div>
+			<div class="col-12">
+			<!-- Ricerca pizza per nome -->
+				
+				<form th:action="@{/pizza/by/name}" method="POST">
+					<label class="">Search by name</label>
+					<input type="text" name="name" th:value="${name}">
+					<br>
+					<button type="submit" name="Search">Search</button>
+				</form>
+			</div>
 			<div class="col-12 mt-5 d-flex justify-content-between">
-				<a class="d-block" th:href="@{/pizza/{id} (id=*{id})}" th:if="${pizze.size() > 0}" th:each="pizza : ${pizze}" th:object="${pizza}">
-					<div  class="card" style="width: 18rem;">
-		  				<img th:src="@{${pizza.photo}}" alt="" class="card-img-top">
-		  				<div class="card-body">
-		    				<h5 class="card-title">[[ *{name} ]]</h5>
-		    				<p class="card-text">[[ *{description} ]]</p>
-		    				<p class="card-text">Price: [[ *{price} ]]</p>
-		    				<!--  <a href="#" class="btn btn-primary">Go somewhere</a>-->
-		  				</div>
+				<div class="row">
+					<div class="col-3 mt-2" th:if="${pizze.size() > 0}" th:each="pizza : ${pizze}" th:object="${pizza}">
+						<a class="d-block" th:href="@{/pizza/{id} (id=*{id})}">
+							<div  class="card" style="width: 18rem;">
+				  				<img th:src="@{${pizza.photo}}" alt="" class="card-img-top">
+				  				<div class="card-body">
+				    				<h5 class="card-title">[[ *{name} ]]</h5>
+				    				<p class="card-text">[[ *{description} ]]</p>
+				    				<p class="card-text">Price: [[ *{price} ]]</p>
+				    				<!--  <a href="#" class="btn btn-primary">Go somewhere</a>-->
+				  				</div>
+							</div>
+						</a>
 					</div>
-				</a>
+				</div>
 				<h1 th:if="${pizze.size() == 0}">No pizza in the database</h1>
 			</div>
 		</div>
