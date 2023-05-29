@@ -5,6 +5,15 @@
 <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}" />
 </head>
 <body>
-	<h1 th:object="${pizza}"> [[ *{name} ]] </h1>
+	<div class="container" th:object="${pizza}">
+		<div class="row justify-content-center">
+			<div class="col-4 border text-center mt-5">
+				<img th:src="@{${pizza.photo}}" class="mt-3">
+				<h2>[[ *{name} ]]</h2>
+				<p>[[ *{description} ]]</p>
+				<p>Price: [[ *{price} ]]</p>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

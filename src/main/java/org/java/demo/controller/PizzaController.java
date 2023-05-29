@@ -32,8 +32,10 @@ public class PizzaController {
 	@PostMapping("/pizza/by/name")
 	public String getPizzaByTitle(Model model,@RequestParam(required = false) String name) {
 		List<Pizza> pizze = pizzaService.findByNameContaining(name);
-		model.addAttribute("pizze", pizze); //Passiamo a index.html la lista delle pizze filtrate
-		model.addAttribute("name", name); // Passiamo a index.html anche il parametro (Nome inserito nel form) passato dal form al back-end
+//		Passiamo a index.html la lista delle pizze filtrate
+		model.addAttribute("pizze", pizze);
+//		Passiamo a index.html anche il parametro (Nome inserito nel form) passato dal form al back-end
+		model.addAttribute("name", name);
 		
 		return "index";
 	}
@@ -62,8 +64,8 @@ public class PizzaController {
 	public String storePizza(@ModelAttribute Pizza pizza) { //L'oggetto 'Pizza' viene popolato automaticamente con i dati inviati dal client tramite la richiesta POST grazie all'annotazione @ModelAttribute
 		
 		pizzaService.save(pizza);
-		
-		return "redirect:/"; //Ritorna la rotta '/' (in questo caso la homepage)
+//		Ritorna la rotta '/' (in questo caso la homepage)
+		return "redirect:/"; 
 	}
 	
 	

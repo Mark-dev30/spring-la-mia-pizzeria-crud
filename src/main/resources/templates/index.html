@@ -6,25 +6,26 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-12">
-			<!-- Reindirizza alla rotta /pizza/create -->
-				<a th:href="@{/pizza/create}">New Pizza</a>
-			</div>
-			<div class="col-12">
+		<div class="row mt-3">
+			<div class="col-6">
 			<!-- Ricerca pizza per nome -->
-				
+			
 				<form th:action="@{/pizza/by/name}" method="POST">
-					<label class="">Search by name</label>
-					<input type="text" name="name" th:value="${name}">
-					<br>
-					<button type="submit" name="Search">Search</button>
+					<div class="mb-3">
+						<label  class="form-label">Search by name</label>
+						<input type="text" class="form-control"  name="name" th:value="${name}">
+					</div>
+					<button class="btn btn-primary" type="submit" value="search">Search</button>
 				</form>
 			</div>
-			<div class="col-12 mt-5 d-flex justify-content-between">
+			<div class="col-6 d-flex align-items-center">
+			<!-- Reindirizza alla rotta /pizza/create -->
+				<a class="btn btn-success mb-4" th:href="@{/pizza/create}">New Pizza</a>
+			</div>
+			<div class="col-12">
 				<div class="row">
 					<div class="col-3 mt-2" th:if="${pizze.size() > 0}" th:each="pizza : ${pizze}" th:object="${pizza}">
-						<a class="d-block" th:href="@{/pizza/{id} (id=*{id})}">
+						<a class="text-decoration-none text-dark" th:href="@{/pizza/{id} (id=*{id})}">
 							<div  class="card" style="width: 18rem;">
 				  				<img th:src="@{${pizza.photo}}" alt="" class="card-img-top">
 				  				<div class="card-body">
