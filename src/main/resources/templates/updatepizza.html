@@ -7,24 +7,24 @@
 <body>
 	<div class="container">
 		<div class="row">
-			<div class="col-12">
-			<h2>Create</h2>
-				<form method="POST">
+			<div class="col-12" th:object="${pizza}">
+				<h2>Update</h2>
+				<form th:action="@{/pizza/update/{id} (id=*{id})}" method="POST">
 					  <div class="mb-3">
 							<label  class="form-label">Name</label>
-						    <input type="text" class="form-control"  name="name">
+						    <input type="text" class="form-control"  name="name" th:value="*{name}">
 					  </div>
 					  <div class="mb-3">
 							<label  class="form-label">Description</label>
-						    <input type="text" class="form-control"  name="description">
+						    <input type="text" class="form-control"  name="description" th:value="*{description}">
 					  </div>
 					  <div class="mb-3">
 							<label  class="form-label">Photo</label>
-						    <input type="text" class="form-control"  name="photo">
+						    <input type="text" class="form-control"  name="photo" th:value="*{photo}">
 					  </div>
 					  <div class="mb-3">
 							<label  class="form-label">Price</label>
-						    <input type="number" class="form-control"  name="price">
+						    <input type="number" class="form-control"  name="price" th:value="*{price}">
 					  </div>
 		  
 	  	  				<button class="btn btn-primary" type="submit" value="CREATE">Submit</button>

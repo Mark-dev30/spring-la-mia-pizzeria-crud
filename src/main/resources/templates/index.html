@@ -32,6 +32,8 @@
 				    				<h5 class="card-title">[[ *{name} ]]</h5>
 				    				<p class="card-text">[[ *{description} ]]</p>
 				    				<p class="card-text">Price: [[ *{price} ]]</p>
+				    				<a th:href="@{/pizza/update/{id} (id=*{id})}" class="btn btn-warning">Update</a>
+				    				<a th:href="@{/pizza/delete/{id} (id=*{id})}" class="btn btn-danger">Delete</a>
 				    				<!--  <a href="#" class="btn btn-primary">Go somewhere</a>-->
 				  				</div>
 							</div>

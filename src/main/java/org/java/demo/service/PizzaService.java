@@ -1,6 +1,7 @@
 package org.java.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.java.demo.pojo.Pizza;
 import org.java.demo.repo.PizzaRepo;
@@ -26,6 +27,16 @@ public class PizzaService {
 	public List<Pizza> findByNameContaining(String name){
 		
 		return pizzaRepo.findByNameContaining(name);
+	}
+	
+	public void deletePizza(Pizza pizza) {
+		
+		pizzaRepo.delete(pizza);
+	}
+	
+	public Optional<Pizza> findById(int id) {
+		
+		return pizzaRepo.findById(id);
 	}
 	
 }

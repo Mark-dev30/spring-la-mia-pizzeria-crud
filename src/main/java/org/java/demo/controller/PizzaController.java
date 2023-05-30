@@ -1,6 +1,7 @@
 package org.java.demo.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.java.demo.pojo.Pizza;
 import org.java.demo.service.PizzaService;
@@ -66,6 +67,34 @@ public class PizzaController {
 		pizzaService.save(pizza);
 //		Ritorna la rotta '/' (in questo caso la homepage)
 		return "redirect:/"; 
+	}
+	
+	@GetMapping("/pizza/update/{id}")
+	public String editPizza(Model model, @PathVariable int id) {
+		
+		Optional<Pizza> pizzaid = pizzaService.findById(id);
+		Pizza pizza = pizzaid.get();
+		model.addAttribute("pizza", pizza);
+		
+		return "updatepizza";
+	}
+	
+	@PostMapping("/pizza/update/{id}")
+	public String updatePizza( @PathVariable int id, @ModelAttribute Pizza pizza) {
+		
+		pizzaService.save(pizza);
+		
+		return "redirect:/";
+	}
+	
+	
+	@GetMapping("/pizza/delete/{id}")
+	public String deletePizza(@PathVariable int id) {
+		Optional<Pizza> pizzaid = pizzaService.findById(id);
+		Pizza pizza = pizzaid.get();
+		pizzaService.deletePizza(pizza);
+		
+		return "redirect:/";
 	}
 	
 	
