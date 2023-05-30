@@ -10,3 +10,8 @@ import org.springframework.stereotype.Repository;
 public interface PizzaRepo extends JpaRepository<Pizza, Integer>{
 	public List<Pizza> findByNameContaining(String name);
 }
+
+//Un repository fornisce metodi per recuperare, salvare, 
+//aggiornare ed eliminare dati dalla sorgente di dati persistente, 
+//come un database. Questa interazione avviene attraverso 
+//le operazioni CRUD (Create, Read, Update, Delete) che il repository offre.

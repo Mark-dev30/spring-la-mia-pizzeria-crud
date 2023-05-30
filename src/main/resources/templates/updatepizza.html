@@ -13,10 +13,12 @@
 					  <div class="mb-3">
 							<label  class="form-label">Name</label>
 						    <input type="text" class="form-control"  name="name" th:value="*{name}">
+						    <label class="text-danger" th:if="${errors != null && errors.hasFieldErrors('name')}">[[ ${errors.getFieldError('name').defaultMessage}]]</label>
 					  </div>
 					  <div class="mb-3">
 							<label  class="form-label">Description</label>
 						    <input type="text" class="form-control"  name="description" th:value="*{description}">
+						    <label class="text-danger" th:if="${errors != null && errors.hasFieldErrors('description')}">[[ ${errors.getFieldError('description').defaultMessage}]]</label>
 					  </div>
 					  <div class="mb-3">
 							<label  class="form-label">Photo</label>
@@ -25,9 +27,10 @@
 					  <div class="mb-3">
 							<label  class="form-label">Price</label>
 						    <input type="number" class="form-control"  name="price" th:value="*{price}">
+						    <label class="text-danger" th:if="${errors != null && errors.hasFieldErrors('price')}">[[ ${errors.getFieldError('price').defaultMessage}]]</label>
 					  </div>
 		  
-	  	  				<button class="btn btn-primary" type="submit" value="CREATE">Submit</button>
+	  	  				<button class="btn btn-primary" type="submit" value="update">Submit</button>
 				</form>
 			</div>
 		</div>

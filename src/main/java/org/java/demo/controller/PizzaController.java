@@ -8,11 +8,14 @@ import org.java.demo.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class PizzaController {
@@ -45,7 +48,9 @@ public class PizzaController {
 	public String printPizzaWithId(Model model, @PathVariable("id") int id) {
 		
 		
-		Pizza pizza = getPizzaById(id);
+//		Pizza pizza = getPizzaById(id);
+		Optional<Pizza> pizzaid = pizzaService.findById(id);
+		Pizza pizza = pizzaid.get();
 		if(pizza != null) {
 			model.addAttribute("pizza", pizza);
 		}
@@ -55,17 +60,29 @@ public class PizzaController {
 	}
 	
 	@GetMapping("/pizza/create")
-	public String createPizza() {
+	public String createPizza(Model model) {
+		
+		model.addAttribute("pizza", new Pizza());
 		
 		return "newpizza";
 	}
 	
 	//Questa funzione viene chiamata quando viene inviata una richiesta POST all'URL "/pizza/create"
+	
 	@PostMapping("/pizza/create") 
-	public String storePizza(@ModelAttribute Pizza pizza) { //L'oggetto 'Pizza' viene popolato automaticamente con i dati inviati dal client tramite la richiesta POST grazie all'annotazione @ModelAttribute
+	public String storePizza(Model model, @Valid @ModelAttribute Pizza pizza, BindingResult bindingResult) { //L'oggetto 'Pizza' viene popolato automaticamente con i dati inviati dal client tramite la richiesta POST grazie all'annotazione @ModelAttribute
 		
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("pizza",pizza);
+			model.addAttribute("errors", bindingResult);
+			
+			return "newpizza";
+			
+		}
 		pizzaService.save(pizza);
+		
 //		Ritorna la rotta '/' (in questo caso la homepage)
+		
 		return "redirect:/"; 
 	}
 	
@@ -80,8 +97,15 @@ public class PizzaController {
 	}
 	
 	@PostMapping("/pizza/update/{id}")
-	public String updatePizza( @PathVariable int id, @ModelAttribute Pizza pizza) {
+	public String updatePizza(Model model, @PathVariable int id, @Valid @ModelAttribute Pizza pizza, BindingResult bindingResult) {
 		
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("pizza",pizza);
+			model.addAttribute("errors", bindingResult);
+			
+			return "updatepizza";
+			
+		}
 		pizzaService.save(pizza);
 		
 		return "redirect:/";

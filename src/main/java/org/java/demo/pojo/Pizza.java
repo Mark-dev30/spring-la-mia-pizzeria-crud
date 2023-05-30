@@ -1,9 +1,13 @@
 package org.java.demo.pojo;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity 
 public class Pizza {
@@ -12,13 +16,18 @@ public class Pizza {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotBlank(message = "Name can't be null")
 	private String name;
+	@NotBlank(message = "Description can't be null")
 	private String description;
+	
 	private String photo;
+	@NotNull(message = "Price can't be null")
+	@Min(value = 3, message = "Price can't be less than 3 euro")
 	private Integer price;
 	
 	public Pizza() {}
-	public Pizza(String name, String description, String photo, int price) {
+	public Pizza(String name, String description, String photo, Integer price) {
 		setName(name);
 		setDescription(description);
 		setPhoto(photo);
@@ -48,7 +57,7 @@ public class Pizza {
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
-	public int getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 	public void setPrice(Integer price) {
